@@ -16,11 +16,37 @@ const page = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    function showHeadsUpToast() {
+        toast((t) => (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexDirection: 'column' }}>
+                <span>Heads up! This app uses token-based sign-in so your login details are not saved permanently. You might be asked to sign in again later.</span>
+                <button
+                    onClick={() => {
+                        console.log("Confirmed by user");
+                        toast.dismiss(t.id); // Closes this specific toast
+                    }}
+                    style={{
+                        background: '#4CAF50',
+                        color: 'white',
+                        border: 'none',
+                        padding: '4px 8px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                    }}
+                >
+                    OK
+                </button>
+            </div>
+        ), {
+            duration: 5000, // Stays for 5 seconds unless "OK" is clicked
+            position: 'top-center',
+        });
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null);
         setLoading(true);
-        toast("Heads up! This app uses token-based sign-in so your login details aren’t saved permanently. You might be asked to sign in again later.");
 
         const name = e.target.name.value;
         const email = e.target.email.value;
@@ -43,9 +69,10 @@ const page = () => {
                 return;
             }
 
+            showHeadsUpToast();
             setSuccess(true);
             setLoading(false);
-            await new Promise((r) => setTimeout(r, 700));
+            await new Promise((r) => setTimeout(r, 5000));
             router.push("/login");
         } catch (err) {
             setError("Something went wrong");

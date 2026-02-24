@@ -7,6 +7,7 @@ import { FaCog } from 'react-icons/fa';
 import { MdLogout } from 'react-icons/md';
 import ThemeButtonSet from '../components/ThemeButtonSet';
 import { useSession } from 'next-auth/react';
+import App from '../components/App';
 
 const SettingsPage = () => {
   const { theme } = useContext(ThemeContext);
@@ -45,7 +46,9 @@ const SettingsPage = () => {
 
         <div className='flex'>
           <div className="cursor-pointer border border-l-red-700 bg-red-700/15 text-red-700 rounded-xl p-2 flex items-center gap-2"><MdLogout /> Sign Out</div>
+        <App/>
         </div>
+        
       </div>
     </HomeLayout>
   );
