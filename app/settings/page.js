@@ -46,7 +46,6 @@ const SettingsPage = () => {
 
         <div className='flex'>
           <div className="cursor-pointer border border-l-red-700 bg-red-700/15 text-red-700 rounded-xl p-2 flex items-center gap-2"><MdLogout /> Sign Out</div>
-        <App/>
         </div>
         
       </div>

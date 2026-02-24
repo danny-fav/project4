@@ -3,8 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { users } from "@/app/lib/users";
 
-const authSecret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -36,7 +34,7 @@ export const authOptions = {
       }
     }),
   ],
-  secret: authSecret,
+  secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user, trigger, session }) {

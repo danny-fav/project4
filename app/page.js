@@ -15,12 +15,12 @@ const page = () => {
       <div className='flex flex-col items-center justify-center h-screen'>
         <div className='flex flex-col items-center gap-2 mb-3'>
             <LogoOnlyHome/>
-            <h1 className='text-5xl font-bold mt-5'>Welcome to ScoreArena</h1>
+            <h1 className='text-3xl md:text-5xl font-bold mt-5'>Welcome to ScoreArena</h1>
             <p className='text-xl text-gray-500 mt-3'>Your go-to app for the latest sport updates.</p>
-            <p className='mt-5 font-bold text-3xl'>Let&apos;s get you started</p>
+            <p className='mt-5 font-bold text-2xl md:text-3xl'>Let&apos;s get you started</p>
             <div className='flex items-center gap-3 mt-5'>
-              <Link href="/register" className={`text-2xl cursor-pointer px-6 py-2 rounded-lg bg-transparent border border-[#31c47f] text-[#31c47f] hover:bg-[#31c47f] ${theme ? 'hover:text-black' : 'hover:text-white'}`}>Create Account</Link>
-              <Link href="/login" className={`text-2xl cursor-pointer px-16 py-2 rounded-lg bg-[#31c47f] border border-transparent hover:bg-transparent hover:text-[#31c47f] hover:border-[#31c47f] ${theme ? 'text-black' : 'text-white'}`}>Log in</Link>
+              <Link href="/register" className={`text-lg md:text-2xl cursor-pointer px-6 py-2 rounded-lg bg-transparent border border-[#31c47f] text-[#31c47f] hover:bg-[#31c47f] ${theme ? 'hover:text-black' : 'hover:text-white'}`}>Create Account</Link>
+              <Link href="/login" className={`text-lg md:text-2xl cursor-pointer px-16 py-2 rounded-lg bg-[#31c47f] border border-transparent hover:bg-transparent hover:text-[#31c47f] hover:border-[#31c47f] ${theme ? 'text-black' : 'text-white'}`}>Log in</Link>
             </div>
         </div>
         
