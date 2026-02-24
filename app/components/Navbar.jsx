@@ -12,7 +12,6 @@ import { MdFiberManualRecord, MdGroup, MdLogout } from 'react-icons/md';
 import { FaArrowRight, FaCog } from 'react-icons/fa';
 import Avatar from './Avatar';
 import SearchBar from './SearchBar';
-import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 

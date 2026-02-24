@@ -6,10 +6,11 @@ import AvatarSet from '../components/AvatarSet';
 import { FaCog } from 'react-icons/fa';
 import { MdLogout } from 'react-icons/md';
 import ThemeButtonSet from '../components/ThemeButtonSet';
-import { useSession } from 'next-auth/react';
-import App from '../components/App';
+import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from "next/navigation";
 
 const SettingsPage = () => {
+  const router = useRouter();
   const { theme } = useContext(ThemeContext);
   const { data: session, status } = useSession();
   const username = session?.user?.name || "";
@@ -45,7 +46,7 @@ const SettingsPage = () => {
         </div>
 
         <div className='flex'>
-          <div className="cursor-pointer border border-l-red-700 bg-red-700/15 text-red-700 rounded-xl p-2 flex items-center gap-2"><MdLogout /> Sign Out</div>
+          <button onClick={async () => {await signOut({redirect : false}); router.push("/dummypage")}} className="cursor-pointer border border-l-red-700 bg-red-700/15 text-red-700 rounded-xl p-2 flex items-center gap-2"><MdLogout /> Sign Out</button>
         </div>
         
       </div>
