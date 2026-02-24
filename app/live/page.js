@@ -3,10 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import { ThemeContext } from '../context/ThemeContext';
 import { fetchLiveScores } from '../lib/api';
-import { MdFiberManualRecord, MdRefresh } from 'react-icons/md';
+import { MdFiberManualRecord, MdRefresh, MdSignalWifiOff } from 'react-icons/md';
 import HomeLayout from '../components/HomeLayout';
+import { useSession } from 'next-auth/react';
 
 const LiveMatchesPage = () => {
+  const { data: session, status } = useSession();
   const { themeStyle, theme } = useContext(ThemeContext);
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -24,11 +26,30 @@ const LiveMatchesPage = () => {
   };
 
   useEffect(() => {
+      if (status !== "authenticated") return;
     getLiveScores();
     // Refresh every 60 seconds
     const interval = setInterval(getLiveScores, 60000);
     return () => clearInterval(interval);
   }, []);
+
+if (status === 'unauthenticated') return (
+        <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+            <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+            <span className="ml-10">
+                <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                <br />
+                <p className="text-start  ml-10">try:</p>
+                <ul className="">
+                    <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                    <li>- Reloading the page</li>
+                    <li>- Checking your internet connection</li>
+                    <li>- Clearing your browser cache</li>
+                </ul>
+            </span>
+            {/* Opps something went wrong */}
+        </div>
+    );
 
   return (
     <HomeLayout>

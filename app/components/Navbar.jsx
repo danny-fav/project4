@@ -14,8 +14,10 @@ import Avatar from './Avatar';
 import SearchBar from './SearchBar';
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from "next/navigation";
 
 const Navbar = ({ setOpen, open }) => {
+    const router = useRouter();
     const { data: session, status } = useSession();
     const username = session?.user?.name || "";
     const useremail = session?.user?.email || "john.doe@example.com";
@@ -68,7 +70,7 @@ const Navbar = ({ setOpen, open }) => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="cursor-pointer" onClick={() => signOut({ callbackUrl: '/login' })}><MdLogout /></div>
+                            <div className="cursor-pointer" onClick={async () => {await signOut({redirect : false}); router.push("/dummypage")}}><MdLogout /></div>
                         </div>
                     </nav>
 

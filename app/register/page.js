@@ -6,6 +6,7 @@ import ThemeButton from '../components/ThemeButton';
 import LogoOnly from '../components/LogoOnly';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 const page = () => {
     const { theme } = useContext(ThemeContext);
@@ -19,7 +20,7 @@ const page = () => {
         e.preventDefault();
         setError(null);
         setLoading(true);
-        alert("Heads up! This app uses token-based sign-in so your login details aren’t saved permanently. You might be asked to sign in again later.");
+        toast("Heads up! This app uses token-based sign-in so your login details aren’t saved permanently. You might be asked to sign in again later.");
 
         const name = e.target.name.value;
         const email = e.target.email.value;
@@ -98,6 +99,7 @@ const page = () => {
                                     <span>Create Account</span>
                                 )}</button>
                                  {error && <p className="text-red-500 text-sm">{error}</p>}
+                                 <Toaster position="top-right" />
             </form>
         </div>
       </div>

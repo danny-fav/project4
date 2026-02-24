@@ -6,6 +6,7 @@ import { FaArrowLeft, FaSave } from 'react-icons/fa';
 import AvatarSet from '../components/AvatarSet';
 import { FiMail, FiUser } from 'react-icons/fi';
 import { useSession } from 'next-auth/react';
+import { MdSignalWifiOff } from 'react-icons/md';
 
 const ProfilePage = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,6 +18,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+      if (status !== "authenticated") return;
     if (session?.user?.name) {
       setDisplayName(session.user.name);
     }
@@ -49,6 +51,24 @@ const ProfilePage = () => {
       setLoading(false);
     }
   };
+
+if (status === 'unauthenticated') return (
+        <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+            <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+            <span className="ml-10">
+                <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                <br />
+                <p className="text-start  ml-10">try:</p>
+                <ul className="">
+                    <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                    <li>- Reloading the page</li>
+                    <li>- Checking your internet connection</li>
+                    <li>- Clearing your browser cache</li>
+                </ul>
+            </span>
+            {/* Opps something went wrong */}
+        </div>
+    );
 
   return (
     <HomeLayout>

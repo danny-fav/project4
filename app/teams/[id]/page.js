@@ -5,8 +5,9 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { fetchTeamDetails } from '../../lib/api';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { MdGroup, MdLocationOn, MdStadium } from 'react-icons/md';
+import { MdGroup, MdLocationOn, MdSignalWifiOff, MdStadium } from 'react-icons/md';
 import HomeLayout from '@/app/components/HomeLayout';
+import { useSession } from 'next-auth/react';
 
 /**
  * TeamDetailsPage Component
@@ -14,6 +15,7 @@ import HomeLayout from '@/app/components/HomeLayout';
  * including their badge, description, and stadium details.
  */
 const TeamDetailsPage = () => {
+  const { data: session, status } = useSession();
     // Hooks for theme, URL parameters, and team data state
     const { themeStyle, theme } = useContext(ThemeContext);
     const { id } = useParams();
@@ -22,6 +24,7 @@ const TeamDetailsPage = () => {
 
     // Fetch team details whenever the ID in the URL changes
     useEffect(() => {
+        if (status !== "authenticated") return;
         const getTeam = async () => {
             if (id) {
                 const data = await fetchTeamDetails(id);
@@ -54,6 +57,24 @@ const TeamDetailsPage = () => {
             </div>
         );
     }
+
+if (status === 'unauthenticated') return (
+        <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+            <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+            <span className="ml-10">
+                <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                <br />
+                <p className="text-start  ml-10">try:</p>
+                <ul className="">
+                    <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                    <li>- Reloading the page</li>
+                    <li>- Checking your internet connection</li>
+                    <li>- Clearing your browser cache</li>
+                </ul>
+            </span>
+            {/* Opps something went wrong */}
+        </div>
+    );
 
     return (
         <HomeLayout>

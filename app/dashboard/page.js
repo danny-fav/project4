@@ -5,9 +5,11 @@ import { ThemeContext } from '../context/ThemeContext';
 import { fetchLeagues, fetchUpcomingEvents, fetchLiveScores } from '../lib/api';
 import Link from 'next/link';
 import { HiOutlineTrophy } from 'react-icons/hi2';
-import { MdEvent, MdFiberManualRecord } from 'react-icons/md';
+import { MdEvent, MdFiberManualRecord, MdSignalWifiOff } from 'react-icons/md';
+import { useSession } from 'next-auth/react';
 
 const DashboardPage = () => {
+  const { data: session, status } = useSession();
   const { theme } = useContext(ThemeContext);
   const [leagues, setLeagues] = useState([]);
   const [events, setEvents] = useState([]);
@@ -20,6 +22,7 @@ const DashboardPage = () => {
    */
   useEffect(() => {
     const loadDashboardData = async () => {
+      if (status !== "authenticated") return;
       try {
         setLoading(true);
         const [leaguesData, liveData] = await Promise.all([
@@ -53,6 +56,23 @@ const DashboardPage = () => {
     loadDashboardData();
   }, []);
 
+    if (status === 'unauthenticated') return (
+        <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+            <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+            <span className="ml-10">
+                <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                <br />
+                <p className="text-start  ml-10">try:</p>
+                <ul className="">
+                    <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                    <li>- Reloading the page</li>
+                    <li>- Checking your internet connection</li>
+                    <li>- Clearing your browser cache</li>
+                </ul>
+            </span>
+            {/* Opps something went wrong */}
+        </div>
+    );
   return (
     <HomeLayout>
       <div className="p-4 md:p-8">

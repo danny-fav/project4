@@ -5,14 +5,16 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { fetchUpcomingEvents } from '../../lib/api';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { MdEvent } from 'react-icons/md';
+import { MdEvent, MdSignalWifiOff } from 'react-icons/md';
 import HomeLayout from '@/app/components/HomeLayout';
+import { useSession } from 'next-auth/react';
 
 /**
  * LeagueDetailsPage Component
  * Shows upcoming matches/events for a selected league.
  */
 const LeagueDetailsPage = () => {
+  const { data: session, status } = useSession();
     // Theme and routing hooks
     const { themeStyle, theme } = useContext(ThemeContext);
     const { id } = useParams();
@@ -23,6 +25,7 @@ const LeagueDetailsPage = () => {
 
     // Fetch league events on mount or ID change
     useEffect(() => {
+      if (status !== "authenticated") return;
         const getEvents = async () => {
             if (id) {
                 const data = await fetchUpcomingEvents(id);
@@ -33,6 +36,23 @@ const LeagueDetailsPage = () => {
         getEvents();
     }, [id]);
 
+    if (status === 'unauthenticated') return (
+            <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+                <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+                <span className="ml-10">
+                    <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                    <br />
+                    <p className="text-start  ml-10">try:</p>
+                    <ul className="">
+                        <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                        <li>- Reloading the page</li>
+                        <li>- Checking your internet connection</li>
+                        <li>- Clearing your browser cache</li>
+                    </ul>
+                </span>
+                {/* Opps something went wrong */}
+            </div>
+        );
     return (
         <HomeLayout>
             <div className='min-h-screen font-sans' style={themeStyle}>

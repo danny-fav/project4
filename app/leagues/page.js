@@ -6,6 +6,8 @@ import { fetchLeagues } from '../lib/api';
 import Link from 'next/link';
 import { HiOutlineTrophy } from 'react-icons/hi2';
 import HomeLayout from '../components/HomeLayout';
+import { useSession } from 'next-auth/react';
+import { MdSignalWifiOff } from 'react-icons/md';
 
 /**
  * LeaguesPage Component
@@ -13,6 +15,7 @@ import HomeLayout from '../components/HomeLayout';
  * Fetches data from TheSportsDB and handles light/dark theme styling.
  */
 const LeaguesPage = () => {
+  const { data: session, status } = useSession();
   // Access global theme state for styling
   const { themeStyle, theme } = useContext(ThemeContext);
 
@@ -23,6 +26,7 @@ const LeaguesPage = () => {
 
   // Fetch all leagues on component mount
   useEffect(() => {
+      if (status !== "authenticated") return;
     const getLeagues = async () => {
       const data = await fetchLeagues();
       setLeagues(data);
@@ -34,6 +38,24 @@ const LeaguesPage = () => {
   const filteredLeagues = leagues.filter(league =>
     league.strLeague.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (status === 'unauthenticated') return (
+          <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+              <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+              <span className="ml-10">
+                  <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                  <br />
+                  <p className="text-start  ml-10">try:</p>
+                  <ul className="">
+                      <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                      <li>- Reloading the page</li>
+                      <li>- Checking your internet connection</li>
+                      <li>- Clearing your browser cache</li>
+                  </ul>
+              </span>
+              {/* Opps something went wrong */}
+          </div>
+      );
 
   return (
     <HomeLayout>

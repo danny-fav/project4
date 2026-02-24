@@ -16,6 +16,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const metadata = {
+    robots: {
+        index: false,
+        follow: false,
+    },
+
+    title: "Score Arena",
+    description: "A sports score dashboard cearted by drexxy",
+};
+
 export default function RootLayout({ children }) {
   const [loading, setLoading] = useState(true);
 

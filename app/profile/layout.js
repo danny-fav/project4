@@ -8,7 +8,7 @@ export const metadata = {
     description: "A sports score dashboard cearted by drexxy",
 };
 
-export default function DashboardLayout({ children }) {
+export default function ProfileLayout({ children }) {
     return (
         <section>
             {children}

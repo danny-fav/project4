@@ -4,8 +4,9 @@ import Navbar from '../components/Navbar';
 import { ThemeContext } from '../context/ThemeContext';
 import { searchTeams, fetchTeamsInLeague } from '../lib/api';
 import Link from 'next/link';
-import { MdGroup, MdSearch } from 'react-icons/md';
+import { MdGroup, MdSearch, MdSignalWifiOff } from 'react-icons/md';
 import HomeLayout from '../components/HomeLayout';
+import { useSession } from 'next-auth/react';
 
 /**
  * TeamsPage Component
@@ -13,6 +14,7 @@ import HomeLayout from '../components/HomeLayout';
  * Initially loads popular teams from the Premier League.
  */
 const TeamsPage = () => {
+    const { data: session, status } = useSession();
   // Global theme and local state for teams, search inputs, and loading indicators
   const { themeStyle, theme } = useContext(ThemeContext);
   const [teams, setTeams] = useState([]);
@@ -21,6 +23,7 @@ const TeamsPage = () => {
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
+      if (status !== "authenticated") return;
     // Load some popular teams initially (e.g., from English Premier League)
     const loadInitialTeams = async () => {
       setLoading(true);
@@ -44,6 +47,24 @@ const TeamsPage = () => {
     setLoading(false);
     setIsSearching(false);
   };
+
+if (status === 'unauthenticated') return (
+        <div className="justify-center items-center flex flex-col gap-20 min-h-screen ">
+            <MdSignalWifiOff className="w-20 h-20 text-[#31c47f] mx-auto mt-40" />
+            <span className="ml-10">
+                <h1 className="text-3xl ">Oops Something wen&apos;t wrong</h1>
+                <br />
+                <p className="text-start  ml-10">try:</p>
+                <ul className="">
+                    <li>- <a href="/login" className="text-[#31c47f] underline">Logging in again</a></li>
+                    <li>- Reloading the page</li>
+                    <li>- Checking your internet connection</li>
+                    <li>- Clearing your browser cache</li>
+                </ul>
+            </span>
+            {/* Opps something went wrong */}
+        </div>
+    );
 
   return (
     <HomeLayout>
