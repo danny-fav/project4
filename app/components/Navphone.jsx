@@ -10,6 +10,10 @@ import { MdFiberManualRecord, MdGroup } from 'react-icons/md';
 import { FaCog } from 'react-icons/fa';
 import { LuLayoutDashboard } from 'react-icons/lu';
 
+/**
+ * Mobile navigation drawer rendered through a portal so it can
+ * overlay the full screen independent of parent stacking contexts.
+ */
 const Navphone = () => {
     const [mounted, setMounted] = useState(false);
     const [open, setOpen] = useState(false);

@@ -1,4 +1,5 @@
 const BASE_URL = 'https://www.thesportsdb.com/api/v1/json/3';
+const BASE_URL2 = 'https://www.thesportsdb.com/api/v2/json';
 
 /**
  * Fetches all soccer leagues with rich data (badges, descriptions, etc.)
@@ -94,18 +95,18 @@ export const fetchTeamDetails = async (teamId) => {
  * Fetches live scores (if available) or recent soccer results
  * @returns {Promise<Array>} List of matches
  */
-export const fetchLiveScores = async () => {
-    // TheSportsDB has limited live scores in free tier, 
-    // but we can try fetching latest soccer results
-    try {
-        const response = await fetch(`${BASE_URL}/latestsoccer.php`);
-        const data = await response.json();
-        return data.teams || [];
-    } catch (error) {
-        console.error('Error fetching live scores:', error);
-        return [];
-    }
-};
+// export const fetchLiveScores = async () => {
+//     // TheSportsDB has limited live scores in free tier, 
+//     // but we can try fetching latest soccer results
+//     try {
+//         const response = await fetch(`${BASE_URL2}/api/v2/json/livescore/soccer`);
+//         const data = await response.json();
+//         return data.teams || [];
+//     } catch (error) {
+//         console.error('Error fetching live scores:', error);
+//         return [];
+//     }
+// };
 /**
  * Searches for teams by name globally
  * @param {string} teamName The name of the team to search for
@@ -136,4 +137,17 @@ export const fetchTeamsInLeague = async (leagueName) => {
         console.error('Error fetching teams in league:', error);
         return [];
     }
+};
+
+
+export const fetchLiveScores = async () => {
+  const today = new Date().toISOString().split("T")[0];
+
+  const res = await fetch(
+    `https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=${today}&s=Soccer`
+  );
+
+  const data = await res.json();
+
+  return data.events;
 };

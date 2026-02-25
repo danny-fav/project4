@@ -2,6 +2,7 @@
 import React,{useContext} from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
+// Enlarged logo mark used on the landing page hero area.
 const LogoOnlyHome = () => {
   const { theme } = useContext(ThemeContext);
   return (

@@ -8,6 +8,7 @@ export const metadata = {
     description: "A sports score dashboard cearted by drexxy",
 };
 
+// Layout wrapper for dynamic league detail routes and metadata.
 export default function LeaguesLayoutId({ children }) {
     return (
         <section>

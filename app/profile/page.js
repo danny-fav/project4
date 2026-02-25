@@ -8,6 +8,10 @@ import { FiMail, FiUser } from 'react-icons/fi';
 import { useSession } from 'next-auth/react';
 import { MdSignalWifiOff } from 'react-icons/md';
 
+/**
+ * Profile page for viewing and updating the signed-in user's
+ * display name and basic account details.
+ */
 const ProfilePage = () => {
   const { theme } = useContext(ThemeContext);
   const { data: session, status, update } = useSession();
@@ -24,6 +28,7 @@ const ProfilePage = () => {
     }
   }, [session?.user?.name]);
 
+  // Persists profile changes and updates the active NextAuth session.
   const handleSave = async (e) => {
     e.preventDefault();
     setLoading(true);

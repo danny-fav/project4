@@ -9,6 +9,10 @@ import ThemeButtonSet from '../components/ThemeButtonSet';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 
+/**
+ * Settings page for user preferences such as theme selection,
+ * profile access, and sign-out controls.
+ */
 const SettingsPage = () => {
   const router = useRouter();
   const { theme } = useContext(ThemeContext);

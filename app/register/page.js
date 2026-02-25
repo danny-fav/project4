@@ -8,6 +8,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 
+/**
+ * Registration page that creates a new user account and then
+ * forwards the user to the login flow.
+ */
 const page = () => {
     const { theme } = useContext(ThemeContext);
     const [see , setSee] = useState(false);
@@ -16,6 +20,7 @@ const page = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    // Shows a quick notice about token-based authentication behavior.
     function showHeadsUpToast() {
         toast((t) => (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexDirection: 'column' }}>
@@ -43,6 +48,7 @@ const page = () => {
         });
     }
 
+    // Sends registration data to the API route and manages submit feedback.
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null);

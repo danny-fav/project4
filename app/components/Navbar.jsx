@@ -15,6 +15,10 @@ import SearchBar from './SearchBar';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from "next/navigation";
 
+/**
+ * Main navigation shell with desktop sidebar, mobile trigger,
+ * theme toggle, global search, and quick profile actions.
+ */
 const Navbar = ({ setOpen, open }) => {
     const router = useRouter();
     const { data: session, status } = useSession();
@@ -23,11 +27,12 @@ const Navbar = ({ setOpen, open }) => {
     const user = { name: username, email: useremail };
     const pathname = usePathname();
     const { theme } = useContext(ThemeContext);
+    // Centralized app navigation config used by the desktop sidebar.
     const links = [
         { href: "/dashboard", label: "Dashboard", icon: <LuLayoutDashboard /> },
         { href: "/leagues", label: "Leagues", icon: <HiOutlineTrophy /> },
         { href: "/teams", label: "Teams", icon: <MdGroup /> },
-        { href: "/live", label: "Live Matches", icon: <div className="live-container"><MdFiberManualRecord className="live-icon" /></div> },
+        { href: "/live", label: "Live Scores", icon: <div className="live-container"><MdFiberManualRecord className="live-icon" /></div> },
         { href: "/settings", label: "Settings", icon: <FaCog /> },
     ];
     return (

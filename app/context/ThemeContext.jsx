@@ -3,6 +3,10 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const ThemeContext = createContext();
 
+/**
+ * Global theme provider that stores dark/light preference,
+ * syncs it to localStorage, and exposes reusable style tokens.
+ */
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(true);
   const [mounted, setMounted] = useState(false);
@@ -47,6 +51,7 @@ export const ThemeProvider = ({ children }) => {
     color: '#707d8f',
   };
 
+  // Shared style object consumed by pages/layout wrappers.
   const themeStyle = theme === false ? lightTheme : darkTheme;
 
   return (

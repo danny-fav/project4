@@ -8,6 +8,10 @@ import { HiOutlineTrophy } from 'react-icons/hi2';
 import { MdEvent, MdFiberManualRecord, MdSignalWifiOff } from 'react-icons/md';
 import { useSession } from 'next-auth/react';
 
+/**
+ * Dashboard page that combines leagues, upcoming events, and live snippets
+ * into a single overview screen.
+ */
 const DashboardPage = () => {
   const { data: session, status } = useSession();
   const { theme } = useContext(ThemeContext);
@@ -163,15 +167,15 @@ const DashboardPage = () => {
                   {liveMatches.length > 0 ? liveMatches.map((match, i) => (
                     <div key={i} className="flex items-center justify-between gap-2 py-2 border-b border-gray-100 dark:border-white/5 last:border-0">
                       <div className="flex items-center gap-2 flex-1 overflow-hidden">
-                        <img src={match.strTeamBadge} className="w-5 h-5 shrink-0" alt="" />
-                        <span className="text-xs font-medium truncate">{match.strTeam}</span>
+                        <img src={match.strHomeTeamBadge} className="w-5 h-5 shrink-0" alt="" />
+                        <span className="text-xs font-medium truncate">{match.strHomeTeam}</span>
                       </div>
                       <div className="bg-gray-100 dark:bg-white/10 px-2 py-0.5 rounded font-black text-[10px]">
                         {match.intHomeScore} - {match.intAwayScore}
                       </div>
                       <div className="flex items-center gap-2 flex-1 justify-end overflow-hidden">
-                        <span className="text-xs font-medium truncate">Opponent</span>
-                        <div className="w-5 h-5 bg-gray-200 dark:bg-white/5 rounded-full" />
+                        <span className="text-xs font-medium truncate">{match.strAwayTeam}</span>
+                        <img src={match.strAwayTeamBadge} className="w-5 h-5 shrink-0" alt="" />
                       </div>
                     </div>
                   )) : (

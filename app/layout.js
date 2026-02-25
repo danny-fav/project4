@@ -26,6 +26,10 @@ const metadata = {
     description: "A sports score dashboard cearted by drexxy",
 };
 
+/**
+ * Root app layout that wraps every route with global providers,
+ * base fonts, and the startup preloader experience.
+ */
 export default function RootLayout({ children }) {
   const [loading, setLoading] = useState(true);
 

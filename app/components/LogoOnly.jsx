@@ -2,6 +2,7 @@
 import React,{useContext} from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
+// Compact logo mark used on auth screens.
 const LogoOnly = () => {
   const { theme } = useContext(ThemeContext);
   return (

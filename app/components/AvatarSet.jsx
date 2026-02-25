@@ -3,6 +3,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
+// Larger initials avatar variant used on profile/settings surfaces.
 const AvatarSet = ({ name = "User" }) => {
       const { theme } = useContext(ThemeContext);
   const initials = name.split(' ').filter(Boolean).map(n => n[0]).join('').toUpperCase().slice(0, 2);

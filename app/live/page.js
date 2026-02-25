@@ -7,12 +7,17 @@ import { MdFiberManualRecord, MdRefresh, MdSignalWifiOff } from 'react-icons/md'
 import HomeLayout from '../components/HomeLayout';
 import { useSession } from 'next-auth/react';
 
+/**
+ * Live scores page that pulls current soccer matches and keeps
+ * the feed refreshed on a timed interval.
+ */
 const LiveMatchesPage = () => {
   const { data: session, status } = useSession();
   const { themeStyle, theme } = useContext(ThemeContext);
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Fetches live match data and maps fallback score/minute values for display.
   const getLiveScores = async () => {
     setLoading(true);
     const data = await fetchLiveScores();
@@ -85,8 +90,8 @@ if (status === 'unauthenticated') return (
                     }`}
                 >
                   <div className="flex-1 flex flex-col items-center md:items-end gap-2">
-                    <img src={match.strTeamBadge} alt={match.strTeam} className="w-12 h-12 object-contain" />
-                    <p className="font-bold text-center md:text-right">{match.strTeam}</p>
+                    <img src={match.strHomeTeamBadge} alt={match.strHomeTeam} className="w-12 h-12 object-contain" />
+                    <p className="font-bold text-center md:text-right">{match.strHomeTeam}</p>
                   </div>
 
                   <div className="flex flex-col items-center gap-2 px-8 py-2 rounded-lg bg-gray-100 dark:bg-white/5">
@@ -99,8 +104,8 @@ if (status === 'unauthenticated') return (
                   </div>
 
                   <div className="flex-1 flex flex-col items-center md:items-start gap-2">
-                    <img src={match.strTeamBadge} alt="Opponent" className="w-12 h-12 object-contain grayscale" />
-                    <p className="font-bold text-center md:text-left">Opponent Team</p>
+                    <img src={match.strAwayTeamBadge} alt={match.strAwayTeam} className="w-12 h-12 object-contain grayscale" />
+                    <p className="font-bold text-center md:text-left">{match.strAwayTeam}</p>
                   </div>
                 </div>
               )) : (

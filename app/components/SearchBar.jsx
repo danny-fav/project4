@@ -6,6 +6,10 @@ import React, { Suspense, useContext, useState, useEffect, useRef } from 'react'
 import { searchTeamsLimit, searchLeagues } from '../lib/api'
 import Link from 'next/link';
 
+/**
+ * Search input with debounced API lookups and grouped dropdown results
+ * for leagues and teams.
+ */
 function SearchBarContent() {
   const { theme } = useContext(ThemeContext);
   const router = useRouter();
@@ -45,6 +49,7 @@ function SearchBarContent() {
     return () => clearTimeout(timer);
   }, [query]);
 
+  // Navigates to the selected result and resets the search state.
   const handleSelect = (path) => {
     router.push(path);
     setShowDropdown(false);
@@ -110,6 +115,7 @@ function SearchBarContent() {
   );
 }
 
+// Suspense wrapper used where the search bar is mounted in navigation.
 export default function SearchBar() {
   return (
     <Suspense fallback={<div className="relative w-full h-10 bg-gray-100 dark:bg-white/5 rounded-xl"></div>}>

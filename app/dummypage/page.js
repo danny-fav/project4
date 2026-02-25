@@ -5,6 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import { ThemeContext } from "../context/ThemeContext";
 import ThemeButton from "../components/ThemeButton";
 
+// Simple sign-out confirmation screen with quick navigation actions.
 export default function DummyPage(){
     const { theme } = useContext(ThemeContext);
     return (

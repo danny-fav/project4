@@ -8,6 +8,7 @@ export const metadata = {
     description: "A sports score dashboard cearted by drexxy",
 };
 
+// Layout wrapper for team listing routes and metadata.
 export default function TeamLayout({ children }) {
     return (
         <section>

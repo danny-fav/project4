@@ -8,6 +8,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+/**
+ * Login page that authenticates users with NextAuth credentials
+ * and redirects to the dashboard on success.
+ */
 const page = () => {
   const { theme } = useContext(ThemeContext);
   const [see, setSee] = useState(false);
@@ -16,6 +20,7 @@ const page = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // Handles credentials submission and controls the UI loading/success states.
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);

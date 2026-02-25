@@ -3,6 +3,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import Navbar from './Navbar';
 
+/**
+ * Shared authenticated layout that renders the top/side navigation
+ * and applies responsive content spacing.
+ */
 export default function HomeLayout({ children }) {
   const { themeStyle } = useContext(ThemeContext);
   const [open, setOpen] = useState(false);

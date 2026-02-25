@@ -8,6 +8,7 @@ export const metadata = {
     description: "A sports score dashboard cearted by drexxy",
 };
 
+// Layout wrapper for live score routes and route-level metadata.
 export default function LiveLayout({ children }) {
     return (
         <section>

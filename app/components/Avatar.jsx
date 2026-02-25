@@ -3,6 +3,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 
+// Small initials avatar used in nav menus and compact user touchpoints.
 const Avatar = ({ name = "User" }) => {
     const { theme } = useContext(ThemeContext);
   const initials = name.split(' ').filter(Boolean).map(n => n[0]).join('').toUpperCase().slice(0, 2);

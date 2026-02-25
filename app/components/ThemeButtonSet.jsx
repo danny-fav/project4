@@ -3,6 +3,10 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import {IoMdSunny, IoMdMoon, IoMdDesktop} from 'react-icons/io';
 
+/**
+ * Multi-option theme selector for light, dark, and system modes.
+ * Used in settings where users need explicit control.
+ */
 const ThemeButtonSet = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [themeMode, setThemeMode] = useState('light');
@@ -44,6 +48,7 @@ const ThemeButtonSet = () => {
     };
   }, [themeMode, setTheme]);
 
+  // Applies the selected mode and persists it for future visits.
   const handleThemeChange = (mode) => {
     setThemeMode(mode);
     localStorage.setItem('page-theme-mode', mode);

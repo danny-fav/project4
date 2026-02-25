@@ -3,6 +3,7 @@ import React,{useContext} from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import Link from 'next/link';
 
+// Primary brand lockup used in navigation, linking back to dashboard.
 const Logo = () => {
   const { theme } = useContext(ThemeContext);
   return (
